@@ -19,8 +19,9 @@ class StudentSerializer(serializers.ModelSerializer):
     
 class PathSerializer(serializers.ModelSerializer):
     
-     students = StudentSerializer(many=True)
+    #  students = StudentSerializer(many=True)
      class Meta:
         model = Path
         # fields = "all"
-        fields = ["id", "path_name", "students"]
+        fields = ["id", "path_name"]
+        # fields = ["id", "path_name", "students"]
