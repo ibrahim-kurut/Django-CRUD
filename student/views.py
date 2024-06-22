@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Student, Path
 from .serializers import StudentSerializer, PathSerializer
+
+from rest_framework.views import APIView
 # Create your views here.
 
 
@@ -119,6 +121,56 @@ def delete_path(request, pk):
     return Response(message)
 
 
+#! _____________________________ class based views _____________________________
+
+#? create a new path
+class CreatePath(APIView):
+    def post(self, request):
+        serializer = PathSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            message = {
+                "message": "Path created successfully"
+            }
+            return Response(message, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#? get all paths
+class PathList(APIView):
+    def get(self, request):
+        paths = Path.objects.all()
+        serializer = PathSerializer(paths, many=True)
+        return Response(serializer.data)
+
+#? get single path
+class PathDetail(APIView):
+    def get(self, request, pk):
+        path = get_object_or_404(Path, id=pk)
+        serializer = PathSerializer(path)
+        return Response(serializer.data)
+
+#? update single path
+class UpdatePath(APIView):
+    def put(self, request, pk):
+        update_path = get_object_or_404(Path, id=pk)
+        serializer = PathSerializer(instance=update_path, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            message = {
+                "message": "Path updated successfully"
+                }
+            return Response(message, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#? delete path
+class DeletePath(APIView):
+    def delete(self, request, pk):
+        delete_path = get_object_or_404(Path, id=pk)
+        delete_path.delete()
+        message = {
+            "message": "Path deleted successfully"
+        }
+        return Response(message)
 
 
 

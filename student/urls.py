@@ -1,5 +1,24 @@
 from django.urls import path
-from .views import get_all_students ,create_new_student, get_single_student, update_student, delete_student , get_all_path, get_single_path, create_new_Path, update_path, delete_path
+from .views import (
+    get_all_students ,
+    create_new_student,
+    get_single_student, 
+    update_student, 
+    delete_student ,
+    get_all_path, 
+    get_single_path, 
+    create_new_Path, 
+    update_path, 
+    delete_path,
+
+
+#? class based views
+    PathList,
+    PathDetail,
+    CreatePath,
+    UpdatePath,
+    DeletePath
+)
 
 
 urlpatterns = [
@@ -13,10 +32,19 @@ urlpatterns = [
     
 # ______________ paths url ______________
 
-    path('create_path/', create_new_Path),
-    path('paths/', get_all_path),
+    # path('create_path/', create_new_Path),
+    # path('paths/', get_all_path),
     
-    path('path/<int:pk>', get_single_path),
-    path('update_path/<int:pk>', update_path),
-    path('delete_path/<int:pk>', delete_path),
+    # path('path/<int:pk>', get_single_path),
+    # path('update_path/<int:pk>', update_path),
+    # path('delete_path/<int:pk>', delete_path),
+
+# ______________ class based views url ______________
+
+    path('paths/', PathList.as_view()),
+    path('new_path/', CreatePath.as_view()),
+    path('path/<int:pk>/', PathDetail.as_view()),
+    path('update_path/<int:pk>/', UpdatePath.as_view()),
+    path('delete_path/<int:pk>/', DeletePath.as_view()),
+
 ]
