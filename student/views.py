@@ -11,6 +11,8 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelM
 
 from rest_framework.generics import ListAPIView, CreateAPIView,RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
+from rest_framework.viewsets import ModelViewSet
+
 
 
 from rest_framework.views import APIView
@@ -247,4 +249,7 @@ class RemovePath(DestroyAPIView):
     serializer_class = PathSerializer
 
 
-
+#* _______________ Model View Set _______________
+class PathModelViewSet(ModelViewSet):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer

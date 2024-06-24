@@ -1,4 +1,8 @@
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
+
+
 from .views import (
     get_all_students ,
     create_new_student,
@@ -31,7 +35,11 @@ from .views import (
     CreatePath,
     GetPath,
     UpdatePathCV,
-    RemovePath
+    RemovePath,
+
+
+    #* ______ Model View Set ______
+    PathModelViewSet
 
 
 
@@ -40,6 +48,11 @@ from .views import (
 
     )
 
+
+
+router = DefaultRouter()
+
+router.register("paths", PathModelViewSet)
 
 urlpatterns = [
     # path('students/', get_all_students),
@@ -80,12 +93,15 @@ urlpatterns = [
 #?_______________ Concrete View Classes Url _______________
 
 
-    path('all_path/', AllPath.as_view()),
-    path('new_path/', CreatePath.as_view()),
-    path('get_path/<int:pk>/', GetPath.as_view()),
-    path('update_path/<int:pk>/', UpdatePathCV.as_view()),
-    path('delete_path/<int:pk>/', RemovePath.as_view()),
+    # path('all_path/', AllPath.as_view()),
+    # path('new_path/', CreatePath.as_view()),
+    # path('get_path/<int:pk>/', GetPath.as_view()),
+    # path('update_path/<int:pk>/', UpdatePathCV.as_view()),
+    # path('delete_path/<int:pk>/', RemovePath.as_view()),
 
 
+#?_______________ Model View Set Url _______________
+
+    path("", include(router.urls))
 
 ]
