@@ -5,6 +5,12 @@ from rest_framework import status
 from .models import Student, Path
 from .serializers import StudentSerializer, PathSerializer
 
+
+from rest_framework.generics import GenericAPIView, mixins
+from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
+
+
+
 from rest_framework.views import APIView
 # Create your views here.
 
@@ -172,6 +178,48 @@ class DeletePath(APIView):
         }
         return Response(message)
 
+#* _______________ Generic APIView _______________
+
+
+#? create a new path
+class Create_Path_GenericAPIView(mixins.CreateModelMixin, GenericAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+#? get all path
+class Get_Paths_GenericAPIView(mixins.ListModelMixin, GenericAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+#? get single path
+class Get_Path_GenericAPIView(mixins.RetrieveModelMixin, GenericAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+#? update path
+class Update_Path_GenericAPIView(mixins.UpdateModelMixin, GenericAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+#? delete path
+class Delete_Path_GenericAPIView(mixins.DestroyModelMixin, GenericAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 
