@@ -9,6 +9,8 @@ from .serializers import StudentSerializer, PathSerializer
 from rest_framework.generics import GenericAPIView, mixins
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
 
+from rest_framework.generics import ListAPIView, CreateAPIView,RetrieveAPIView, UpdateAPIView, DestroyAPIView
+
 
 
 from rest_framework.views import APIView
@@ -222,6 +224,27 @@ class Delete_Path_GenericAPIView(mixins.DestroyModelMixin, GenericAPIView):
         return self.destroy(request, *args, **kwargs)
 
 
+#* _______________ Concrete View Classes _______________
+
+class AllPath(ListAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+class CreatePath(CreateAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+class GetPath(RetrieveAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+class UpdatePathCV(UpdateAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+class RemovePath(DestroyAPIView):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
 
 
 

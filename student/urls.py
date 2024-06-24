@@ -24,7 +24,20 @@ from .views import (
     Create_Path_GenericAPIView,
     Get_Path_GenericAPIView,
     Update_Path_GenericAPIView,
-    Delete_Path_GenericAPIView
+    Delete_Path_GenericAPIView,
+
+    #* ______ Concrete View Classes ______
+    AllPath,
+    CreatePath,
+    GetPath,
+    UpdatePathCV,
+    RemovePath
+
+
+
+
+
+
     )
 
 
@@ -57,9 +70,22 @@ urlpatterns = [
 
 
 
-    path('all_path/', Get_Paths_GenericAPIView.as_view()),
-    path('create_path/', Create_Path_GenericAPIView.as_view()),
-    path('get_path/<int:pk>/', Get_Path_GenericAPIView.as_view()),
-    path('update_path/<int:pk>/', Update_Path_GenericAPIView.as_view()),
-    path('delete_path/<int:pk>/', Delete_Path_GenericAPIView.as_view()),
+    # path('all_path/', Get_Paths_GenericAPIView.as_view()),
+    # path('create_path/', Create_Path_GenericAPIView.as_view()),
+    # path('get_path/<int:pk>/', Get_Path_GenericAPIView.as_view()),
+    # path('update_path/<int:pk>/', Update_Path_GenericAPIView.as_view()),
+    # path('delete_path/<int:pk>/', Delete_Path_GenericAPIView.as_view()),
+
+
+#?_______________ Concrete View Classes Url _______________
+
+
+    path('all_path/', AllPath.as_view()),
+    path('new_path/', CreatePath.as_view()),
+    path('get_path/<int:pk>/', GetPath.as_view()),
+    path('update_path/<int:pk>/', UpdatePathCV.as_view()),
+    path('delete_path/<int:pk>/', RemovePath.as_view()),
+
+
+
 ]
